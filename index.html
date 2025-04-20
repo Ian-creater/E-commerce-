@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uganda Agriculture Directory</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #2c7d3f;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #1e5a2b;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 1rem;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #164620;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 1rem;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 4rem 1rem;
+            margin-bottom: 2rem;
+            border-radius: 5px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #2c7d3f;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #1e5a2b;
+        }
+
+        /* Section Styles */
+        section {
+            margin-bottom: 3rem;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #2c7d3f;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        h3 {
+            color: #1e5a2b;
+            margin: 1.5rem 0 1rem;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #2c7d3f;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* List Styles */
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .card-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        /* Accordion Styles */
+        .accordion {
+            margin-bottom: 1rem;
+        }
+
+        .accordion-header {
+            background-color: #2c7d3f;
+            color: white;
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .accordion-header:hover {
+            background-color: #1e5a2b;
+        }
+
+        .accordion-content {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+            display: none;
+        }
+
+        .accordion.active .accordion-content {
+            display: block;
+        }
+
+        /* Search Section */
+        .search-section {
+            background-color: #f0f8f0;
+            padding: 2rem;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .search-btn {
+            padding: 0.8rem 1.5rem;
+            background-color: #2c7d3f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .search-btn:hover {
+            background-color: #1e5a2b;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1e5a2b;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            text-align: left;
+        }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #2c7d3f;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .footer-column a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #2c7d3f;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                width: 100%;
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                right: 1rem;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .search-form {
+                flex-direction: column;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Uganda Agriculture Directory</div>
+            <div class="tagline">Your comprehensive guide to farming in Uganda</div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container nav-container">
+            <button class="mobile-menu-btn">☰</button>
+            <ul class="nav-links">
+                <li><a href="#farming-seasons">Farming Seasons</a></li>
+                <li><a href="#crop-diseases">Crop Diseases</a></li>
+                <li><a href="#cash-crops">Cash Crops</a></li>
+                <li><a href="#pesticides">Pesticides</a></li>
+                <li><a href="#benefits">Benefits</a></li>
+                <li><a href="#business-ideas">Business Ideas</a></li>
+                <li><a href="#resources">Resources</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Empowering Ugandan Farmers</h1>
+            <p>Access comprehensive agricultural information, from seasonal planting guides to profitable agribusiness ideas, all in one place.</p>
+            <a href="#farming-seasons" class="btn">Explore Now</a>
+        </section>
+
+        <section class="search-section">
+            <h2>Find Agricultural Information</h2>
+            <form class="search-form">
+                <input type="text" class="search-input" placeholder="Search for crops, diseases, or farming techniques...">
+                <button type="submit" class="search-btn">Search</button>
+            </form>
+        </section>
+
+        <section id="farming-seasons">
+            <h2>Farming Seasons in Uganda</h2>
+            <p>Uganda has <strong>two main rainy seasons</strong>, making it ideal for <strong>two planting cycles</strong>:</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="card-content">
+                        <h3>First Season (March–June)</h3>
+                        <ul>
+                            <li><strong>Planting</strong>: March–April</li>
+                            <li><strong>Harvesting</strong>: June–July</li>
+                            <li><strong>Best Crops</strong>: Maize, beans, rice, bananas (matooke), coffee</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="card-content">
+                        <h3>Second Season (August–December)</h3>
+                        <ul>
+                            <li><strong>Planting</strong>: August–September</li>
+                            <li><strong>Harvesting</strong>: November–December</li>
+                            <li><strong>Best Crops</strong>: Cassava, sweet potatoes, onions, tomatoes (with irrigation)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="crop-diseases">
+            <h2>Common Crop Diseases & Mitigation</h2>
+            <p>Learn how to identify and manage common agricultural diseases in Uganda:</p>
+            
+            <table>
+                <tr>
+                    <th>Crop</th>
+                    <th>Disease</th>
+                    <th>Symptoms</th>
+                    <th>Mitigation</th>
+                </tr>
+                <tr>
+                    <td><strong>Bananas</strong></td>
+                    <td>Banana Bacterial Wilt (BBW)</td>
+                    <td>Yellowing leaves, oozing sap</td>
+                    <td>Destroy infected plants, use clean tools</td>
+                </tr>
+                <tr>
+                    <td><strong>Maize</strong></td>
+                    <td>Maize Lethal Necrosis (MLN)</td>
+                    <td>Yellow streaks, stunted growth</td>
+                    <td>Plant resistant varieties, crop rotation</td>
+                </tr>
+                <tr>
+                    <td><strong>Coffee</strong></td>
+                    <td>Coffee Wilt Disease</td>
+                    <td>Wilting, leaf drop</td>
+                    <td>Uproot infected trees, use fungicides</td>
+                </tr>
+                <tr>
+                    <td><strong>Cassava</strong></td>
+                    <td>Cassava Mosaic Virus</td>
+                    <td>Yellow patches, twisted leaves</td>
+                    <td>Use disease-free cuttings</td>
+                </tr>
+                <tr>
+                    <td><strong>Tomatoes</strong></td>
+                    <td>Late Blight</td>
+                    <td>Dark leaf spots, rot</td>
+                    <td>Spray copper-based fungicides</td>
+                </tr>
+            </table>
+        </section>
+
+        <section id="cash-crops">
+            <h2>Most Profitable Cash Crops in Uganda</h2>
+            <p>Uganda's <strong>top cash crops</strong> (high demand locally & internationally):</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1511920170033-f8396924c348?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="card-content">
+                        <h3>Coffee</h3>
+                        <p>Robusta & Arabica – #1 export crop</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1556910633-ffe996e9a608?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="card-content">
+                        <h3>Vanilla</h3>
+                        <p>High-value, used in global food/flavor industry</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1586201375761-83865001e1ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="card-content">
+                        <h3>Cocoa</h3>
+                        <p>Used in chocolate; growing demand in Europe</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1558160074-4d7d8bdf4256?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="card-content">
+                        <h3>Tea</h3>
+                        <p>Major export to Kenya, UK, and Middle East</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Cash Crops & Their Products</h3>
+            <table>
+                <tr>
+                    <th>Crop</th>
+                    <th>Products Derived</th>
+                </tr>
+                <tr>
+                    <td><strong>Coffee</strong></td>
+                    <td>Coffee beans, powder, instant coffee</td>
+                </tr>
+                <tr>
+                    <td><strong>Vanilla</strong></td>
+                    <td>Vanilla extract, perfumes, flavoring</td>
+                </tr>
+                <tr>
+                    <td><strong>Cocoa</strong></td>
+                    <td>Chocolate, cocoa butter, cosmetics</td>
+                </tr>
+                <tr>
+                    <td><strong>Maize</strong></td>
+                    <td>Flour, animal feed, corn oil</td>
+                </tr>
+                <tr>
+                    <td><strong>Cotton</strong></td>
+                    <td>Textiles, cooking oil, soap</td>
+                </tr>
+                <tr>
+                    <td><strong>Soybeans</strong></td>
+                    <td>Cooking oil, animal feed, tofu</td>
+                </tr>
+            </table>
+        </section>
+
+        <section id="pesticides">
+            <h2>Best Pesticides in Uganda</h2>
+            <p>Uganda uses <strong>chemical & organic pesticides</strong>:</p>
+            
+            <div class="accordion">
+                <div class="accordion-header">
+                    <span>Chemical Pesticides</span>
+                    <span>+</span>
+                </div>
+                <div class="accordion-content">
+                    <ul>
+                        <li><strong>Karate (Lambda-cyhalothrin)</strong> – For maize, beans</li>
+                        <li><strong>Duduthrin (Cypermethrin)</strong> – For coffee & vegetables</li>
+                        <li><strong>Ridomil Gold (Metalaxyl)</strong> – Fungicide for tomatoes & potatoes</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-header">
+                    <span>Organic/Natural Pest Control</span>
+                    <span>+</span>
+                </div>
+                <div class="accordion-content">
+                    <ul>
+                        <li><strong>Neem Oil</strong> – Repels insects</li>
+                        <li><strong>Chili & Garlic Spray</strong> – Natural insecticide</li>
+                        <li><strong>Ash & Tithonia (Mexican Sunflower)</strong> – Anti-fungal</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p class="warning"><strong>⚠️ Safety Tip</strong>: Always follow <strong>proper dosage</strong> to avoid soil/health damage.</p>
+        </section>
+
+        <section id="benefits">
+            <h2>Benefits of Agriculture in Uganda</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Economic Growth</h3>
+                        <p>Contributes <strong>~24% of Uganda's GDP</strong></p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Employment</h3>
+                        <p>Over <strong>70% of Ugandans</strong> work in farming</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Food Security</h3>
+                        <p>Reduces reliance on imports</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Export Revenue</h3>
+                        <p>Coffee, tea, fish bring <strong>$1.5B+ annually</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="business-ideas">
+            <h2>Innovative Agriculture Business Ideas</h2>
+            <p>Explore these profitable agribusiness opportunities in Uganda:</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1526779259212-939e64788e3c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="card-content">
+                        <h3>Agro-Tourism</h3>
+                        <p>Farm stays, coffee tours</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1596124579925-6631a077c57b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="card-content">
+                        <h3>Hydroponics</h3>
+                        <p>Soil-less farming (lettuce, herbs)</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1587049352851-8d4e89133924?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="card-content">
+                        <h3>Beekeeping</h3>
+                        <p>Honey, beeswax, royal jelly</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1563874251800-bf0c0e60c7c9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="card-content">
+                        <h3>Snail Farming</h3>
+                        <p>High demand in Europe</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="resources">
+            <h2>Additional Learning Resources</h2>
+            
+            <h3>Books</h3>
+            <ul>
+                <li><em>The Vanilla Farmer's Guide</em> – By J. Kanyarushoki</li>
+                <li><em>Uganda's Coffee Handbook</em> – UCDA</li>
+            </ul>
+            
+            <h3>Websites</h3>
+            <ul>
+                <li><strong>National Agricultural Research Organization (NARO)</strong> (<a href="http://www.naro.go.ug" target="_blank">naro.go.ug</a>)</li>
+                <li><strong>Uganda Coffee Development Authority (UCDA)</strong> (<a href="https://ugandacoffee.go.ug" target="_blank">ugandacoffee.go.ug</a>)</li>
+            </ul>
+            
+            <h3>YouTube Channels</h3>
+            <ul>
+                <li><strong>Farmers TV Uganda</strong> (Practical farming tips)</li>
+                <li><strong>Agribusiness Uganda</strong> (Market trends)</li>
+            </ul>
+            
+            <h3>Final Thoughts</h3>
+            <ul>
+                <li><strong>Best crops for profit</strong>: Coffee, vanilla, cocoa, fish</li>
+                <li><strong>Key challenges</strong>: Pests, diseases, climate change</li>
+                <li><strong>Future opportunities</strong>: Organic farming, agro-processing</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#farming-seasons">Farming Seasons</a></li>
+                    <li><a href="#crop-diseases">Crop Diseases</a></li>
+                    <li><a href="#cash-crops">Cash Crops</a></li>
+                    <li><a href="#pesticides">Pesticides</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="http://www.naro.go.ug" target="_blank">NARO</a></li>
+                    <li><a href="https://ugandacoffee.go.ug" target="_blank">UCDA</a></li>
+                    <li><a href="#resources">More Resources</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul>
+                    <li>Email: info@ugandaagriculture.org</li>
+                    <li>Phone: +256 700 123456</li>
+                    <li>Kampala, Uganda</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Uganda Agriculture Directory. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Close mobile menu if open
+                document.querySelector('.nav-links').classList.remove('active');
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Accordion Functionality
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const accordion = header.parentElement;
+                accordion.classList.toggle('active');
+                
+                // Toggle the icon
+                const icon = header.querySelector('span:last-child');
+                icon.textContent = accordion.classList.contains('active') ? '−' : '+';
+            });
+        });
+
+        // Search Functionality
+        document.querySelector('.search-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const searchTerm = document.querySelector('.search-input').value.toLowerCase();
+            
+            // Simple search - in a real app this would be more sophisticated
+            if (searchTerm.includes('coffee')) {
+                window.location.hash = '#cash-crops';
+            } else if (searchTerm.includes('disease') || searchTerm.includes('pest')) {
+                window.location.hash = '#crop-diseases';
+            } else if (searchTerm.includes('season') || searchTerm.includes('planting')) {
+                window.location.hash = '#farming-seasons';
+            } else {
+                alert('Search term not found. Try "coffee", "disease", or "season"');
+            }
+        });
+
+        // Sticky Navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
